@@ -7,6 +7,7 @@ const apiUrl = `http://localhost:3000/results`; //temporary while testing
 //Event listeners
 document.addEventListener('DOMContentLoaded', e => {
     introMsg = document.getElementById('intro-msg');
+    mainContainer = document.getElementById('main');
 })
 document.addEventListener('submit', e => initiatePlayer(e));
 //Functions
@@ -23,5 +24,5 @@ function initiatePlayer(e) {
     initiateCat();
 }
 function intiateCat(){
-    
+
 }
