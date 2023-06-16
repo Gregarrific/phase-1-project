@@ -63,5 +63,8 @@ function initiateCategory() {
     }
 }
 function fetchQuestions(e) {
-    console.log(e.target);
+    fetch(apiUrl)
+    .then (response => response.json())
+    .then (json => console.log(json));
+    
 }
