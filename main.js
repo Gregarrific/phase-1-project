@@ -23,6 +23,15 @@ function initiatePlayer(e) {
     introMsg = introReset;
     initiateCat();
 }
-function intiateCat(){
-
+function initiateCat() {
+    mainContainer.innerHTML = "";
+    let heading = document.createElement('h3');
+    heading.innerText = `2. ${playerName}, choose your difficulty level:`;
+    let difficultySelect = document.createElement('select');
+    difficultySelect.innerHTML = 
+        `<option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>`;
+    mainContainer.appendChild(heading);
+    mainContainer.appendChild(difficultySelect);
 }
