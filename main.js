@@ -108,11 +108,6 @@ function startGame(questionBank) {
     let index = 1;
     showQuestion(qIndex);
     document.addEventListener('click', e => checkAnswer(e))
-    // for (questionObj in json) {
-    //     showQuestion(json[questionObj], index);
-    //     index ++;
-    
-    // };
 }
 function endGame(){
     mainContainer.innerHTML = `<h3>${playerName}, game over!</h3>`;
