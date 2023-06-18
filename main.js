@@ -1,5 +1,5 @@
 //Global variables
-let playerName, difficulty, introMsg;
+let playerName, difficulty, introMsg, answerKey;
 let timerEnd = false;
 const introReset = 'Ready to play?  Enter your name below to start a new game.  Good luck!'
 const apiUrl = `http://localhost:3000/results`; //temporary while testing
@@ -69,16 +69,20 @@ function fetchQuestions(e) {
 }
 function showQuestions(questionObj, num) {
     let questionCard = document.createElement('div');
-    console.log(questionObj);
+    // console.log(questionObj);
     questionCard.id = 'question';
     questionCard.className = 'container';
     questionCard.innerHTML =`<h3 class="questionNum">Question ${num}</h3>
             <h4 class="question">${questionObj.question}</h4>`
-    
-            // <p><button class="button">A</button> More than you can imagine</p> 
-            // <p><button class="result-correct">B</button> Depends on whether or not the woodchuck is vegan</p>
-            // <p><button class="button">C</button> One 2x4 worth</p>
-            // <p><button class="result-incorrect">D</button> 12 matchsticks worth</p>
+    for (let button of answerKey[num-1]) {
+        if (button === answerKey[num-1][0]) {
+        } else {
+        // console.log(`Here: ${button}`);
+        let answerButton = document.createElement('p');
+        answerButton.innerHTML = `<button class='button'>${button}</button>`;
+        questionCard.appendChild(answerButton);
+        }
+    }
     document.body.appendChild(questionCard);
 }
 function createAnswerKey(questions, numQuestions) {
@@ -97,7 +101,7 @@ function startGame(json) {
     mainContainer.innerHTML = `<h3>${playerName}, here we go!  You have 1 minute!</h3>`;
     setTimeout( f => endGame(), 10000);
     let numQuestions = json.length;
-    let answerKey = createAnswerKey(json, numQuestions);
+    answerKey = createAnswerKey(json, numQuestions);
     let index = 1;
     for (questionObj in json) {
         showQuestions(json[questionObj], index)
