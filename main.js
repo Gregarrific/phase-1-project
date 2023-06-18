@@ -111,6 +111,7 @@ function startGame(questionBank) {
 }
 function endGame(){
     mainContainer.innerHTML = `<h3>${playerName}, game over!</h3>`;
+    document.getElementById('question').remove();
 }
 function checkAnswer(e) {
     console.log(e.target);
