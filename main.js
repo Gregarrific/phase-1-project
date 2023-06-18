@@ -69,7 +69,6 @@ function fetchQuestions(e) {
 }
 function showQuestion(questionObj, num) {
     let questionCard = document.createElement('div');
-    // console.log(questionObj);
     questionCard.id = 'question';
     questionCard.className = 'container';
     questionCard.innerHTML =`<h3 class="questionNum">Question ${num}</h3>
@@ -77,7 +76,6 @@ function showQuestion(questionObj, num) {
     for (let button of answerKey[num-1]) {
         if (button === answerKey[num-1][0]) {
         } else {
-        // console.log(`Here: ${button}`);
         let answerButton = document.createElement('p');
         answerButton.innerHTML = `<button class='button'>${button}</button>`;
         questionCard.appendChild(answerButton);
@@ -107,7 +105,6 @@ function startGame(json) {
         showQuestion(json[questionObj], index);
         index ++;
     };
-
 }
 function endGame(){
     mainContainer.innerHTML = `<h3>${playerName}, game over!</h3>`;
