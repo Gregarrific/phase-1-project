@@ -1,7 +1,7 @@
 //Global variables
 let playerName, difficulty, introMsg, answerKey;
 let timerEnd = false;
-const introReset = 'Ready to play?  Enter your name below to start a new game.  Good luck!'
+const introReset = 'Ready to play?  Enter your name below to start a new game.  Good luck!';
 const apiUrl = `http://localhost:3000/results`; //temporary while testing
 const categories = [
     {"id": 9, "name": "General Knowledge"},
@@ -37,7 +37,7 @@ function initiateDifficulty() {
     let difficultySelect = document.createElement('select');
     difficultySelect.id = 'selection';
     difficultySelect.innerHTML = 
-        `<option value="" disabled selected>Choose wisely</option>
+        `<option value="" disabled selected>Choose wisely ;-)</option>
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>`;
@@ -67,7 +67,7 @@ function fetchQuestions(e) {
     .then (response => response.json())
     .then (json => startGame(json));
 }
-function showQuestions(questionObj, num) {
+function showQuestion(questionObj, num) {
     let questionCard = document.createElement('div');
     // console.log(questionObj);
     questionCard.id = 'question';
@@ -99,14 +99,12 @@ function createAnswerKey(questions, numQuestions) {
 }
 function startGame(json) {
     mainContainer.innerHTML = `<h3>${playerName}, here we go!  You have 1 minute!</h3>`;
-    setTimeout( f => endGame(), 10000);
+    setTimeout( f => endGame(), 10000); //Set to 10 seconds for testing purposes
     let numQuestions = json.length;
     answerKey = createAnswerKey(json, numQuestions);
     let index = 1;
     for (questionObj in json) {
-        showQuestions(json[questionObj], index)
-
-
+        showQuestion(json[questionObj], index);
         index ++;
     };
 
