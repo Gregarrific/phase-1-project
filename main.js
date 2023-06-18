@@ -1,5 +1,6 @@
 //Global variables
-let playerName, difficulty, introMsg, answerKey;
+let playerName, difficulty, introMsg, answerKey, questionBank;
+let qIndex = 0;
 let timerEnd = false;
 const introReset = 'Ready to play?  Enter your name below to start a new game.  Good luck!';
 const apiUrl = `http://localhost:3000/results`; //temporary while testing
@@ -65,16 +66,20 @@ function initiateCategory() {
 function fetchQuestions(e) {
     fetch(apiUrl)
     .then (response => response.json())
-    .then (json => startGame(json));
+    .then (json => {
+        questionBank = json;
+        startGame(questionBank);
+    });
 }
-function showQuestion(questionObj, num) {
+function showQuestion(qIndex) {
+    let currentQuestion = questionBank[qIndex];
     let questionCard = document.createElement('div');
     questionCard.id = 'question';
     questionCard.className = 'container';
-    questionCard.innerHTML =`<h3 class="questionNum">Question ${num}</h3>
-            <h4 class="question">${questionObj.question}</h4>`
-    for (let button of answerKey[num-1]) {
-        if (button === answerKey[num-1][0]) {
+    questionCard.innerHTML =`<h3 class="questionNum">Question ${qIndex + 1}</h3>
+            <h4 class="question">${currentQuestion.question}</h4>`
+    for (let button of answerKey[qIndex]) {
+        if (button === answerKey[qIndex][0]) {
         } else {
         let answerButton = document.createElement('p');
         answerButton.innerHTML = `<button class='button'>${button}</button>`;
@@ -95,17 +100,26 @@ function createAnswerKey(questions) {
     console.log(theKey);
     return theKey;
 }
-function startGame(json) {
+function startGame(questionBank) {
     mainContainer.innerHTML = `<h3>${playerName}, here we go!  You have 1 minute!</h3>`;
     setTimeout( f => endGame(), 10000); //Set to 10 seconds for testing purposes
-    let numQuestions = json.length;
-    answerKey = createAnswerKey(json, numQuestions);
+    let numQuestions = questionBank.length;
+    answerKey = createAnswerKey(questionBank, numQuestions);
     let index = 1;
-    for (questionObj in json) {
-        showQuestion(json[questionObj], index);
-        index ++;
-    };
+    showQuestion(qIndex);
+    document.addEventListener('click', e => checkAnswer(e))
+    // for (questionObj in json) {
+    //     showQuestion(json[questionObj], index);
+    //     index ++;
+    
+    // };
 }
 function endGame(){
     mainContainer.innerHTML = `<h3>${playerName}, game over!</h3>`;
+}
+function checkAnswer(e) {
+    console.log(e.target);
+    qIndex ++;
+    document.getElementById('question').remove();
+    showQuestion(qIndex)
 }
