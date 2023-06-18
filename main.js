@@ -67,26 +67,33 @@ function fetchQuestions(e) {
     .then (response => response.json())
     .then (json => startGame(json));
 }
-function showQuestions(questionObj) {
+function showQuestions(questionObj, num) {
     let questionCard = document.createElement('div');
+    console.log(questionObj);
     questionCard.id = 'question';
     questionCard.className = 'container';
+    questionCard.innerHTML =`<h3 class="questionNum">Question ${num}</h3>
+            <h4 class="question">${questionObj.question}</h4>`
+    
+            // <p><button class="button">A</button> More than you can imagine</p> 
+            // <p><button class="result-correct">B</button> Depends on whether or not the woodchuck is vegan</p>
+            // <p><button class="button">C</button> One 2x4 worth</p>
+            // <p><button class="result-incorrect">D</button> 12 matchsticks worth</p>
+    document.body.appendChild(questionCard);
 }
 function startGame(json) {
     mainContainer.innerHTML = `<h3>${playerName}, here we go!</h3>`;
+    setTimeout( f => endGame(), 10000);
     let numQuestions = json.length;
-}
+    let index = 1;
+    for (questionObj in json) {
+        showQuestions(json[questionObj], index)
 
-{/* <div class="card">
-        <div id="question" class="container">
-        <h3 class="questionNum">Question 1</h3>
-        <h4 class="result-not-correct">Sorry. You got the last question wrong.</h4>
-        <h4 class="result-correct">Good job! You got the last question right.</h4>
-            <h4 class="question">How much wood could a woodchuck chuck if woodchuck could
-        chuck wood?</h4> 
-            <p><button class="button">A</button> More than you can imagine</p> 
-            <p><button class="button">B</button> Depends on whether or not the woodchuck is vegan</p>
-            <p><button class="button">C</button> One 2x4 worth</p>
-            <p><button class="button">D</button> 12 matchsticks worth</p>
-        </div>
-    </div> */}
+
+        index ++;
+    };
+
+}
+function endGame(){
+    mainContainer.innerHTML = `<h3>${playerName}, game over!</h3>`;
+}
