@@ -81,10 +81,22 @@ function showQuestions(questionObj, num) {
             // <p><button class="result-incorrect">D</button> 12 matchsticks worth</p>
     document.body.appendChild(questionCard);
 }
+function createAnswerKey(questions, numQuestions) {
+    let theKey = [];
+    for (let question in questions) {
+        const randomNumber = Math.floor(Math.random() * 3) + 1;
+        const answerArray = questions[question].incorrect_answers;
+        answerArray.slice(randomNumber, 0, questions[question].correct_answer);
+        theKey.push(answerArray);
+    }
+    console.log(theKey);
+    return theKey;
+}
 function startGame(json) {
-    mainContainer.innerHTML = `<h3>${playerName}, here we go!</h3>`;
+    mainContainer.innerHTML = `<h3>${playerName}, here we go!  You have 1 minute!</h3>`;
     setTimeout( f => endGame(), 10000);
     let numQuestions = json.length;
+    let answerKey = createAnswerKey(json, numQuestions);
     let index = 1;
     for (questionObj in json) {
         showQuestions(json[questionObj], index)
