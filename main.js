@@ -83,7 +83,7 @@ function showQuestion(questionObj, num) {
     }
     document.body.appendChild(questionCard);
 }
-function createAnswerKey(questions, numQuestions) {
+function createAnswerKey(questions) {
     let theKey = [];
     for (let question in questions) {
         const randomNumber = Math.floor(Math.random() * 4);
