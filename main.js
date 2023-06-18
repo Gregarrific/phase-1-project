@@ -22,8 +22,8 @@ function initiatePlayer(e) {
     e.preventDefault();
     const form = e.target;
     const formInput = form.querySelector('#player-name').value;   
-    if (formInput === "") {
-        introMsg.innerText = "Oops. Looks like you did not enter your name.  Please try again.";
+    if (formInput === '') {
+        introMsg.innerText = 'Oops. Looks like you did not enter your name.  Please try again.';
         return form.reset();
     }
     playerName = formInput;
@@ -31,7 +31,7 @@ function initiatePlayer(e) {
     initiateDifficulty();
 }
 function initiateDifficulty() {
-    mainContainer.innerHTML = "";
+    mainContainer.innerHTML = '';
     let heading = document.createElement('h3');
     heading.innerText = `2. ${playerName}, choose your difficulty level:`;
     let difficultySelect = document.createElement('select');
@@ -49,14 +49,14 @@ function initiateDifficulty() {
     });
 }
 function initiateCategory() {
-    mainContainer.innerHTML = "";
+    mainContainer.innerHTML = '';
     let heading = document.createElement('h3');
     heading.innerText = `3. ${playerName}, choose your category:`;
     mainContainer.appendChild(heading);
     for (item of categories) {
         let button = document.createElement('button');
         button.id = item.id;
-        button.className = "cat-button";
+        button.className = 'cat-button';
         button.innerText = item.name;
         button.addEventListener('click', e => fetchQuestions(e));
         mainContainer.appendChild(button);
@@ -65,6 +65,28 @@ function initiateCategory() {
 function fetchQuestions(e) {
     fetch(apiUrl)
     .then (response => response.json())
-    .then (json => console.log(json));
-    
+    .then (json => startGame(json));
 }
+function showQuestions(questionObj) {
+    let questionCard = document.createElement('div');
+    questionCard.id = 'question';
+    questionCard.className = 'container';
+}
+function startGame(json) {
+    mainContainer.innerHTML = `<h3>${playerName}, here we go!</h3>`;
+    let numQuestions = json.length;
+}
+
+{/* <div class="card">
+        <div id="question" class="container">
+        <h3 class="questionNum">Question 1</h3>
+        <h4 class="result-not-correct">Sorry. You got the last question wrong.</h4>
+        <h4 class="result-correct">Good job! You got the last question right.</h4>
+            <h4 class="question">How much wood could a woodchuck chuck if woodchuck could
+        chuck wood?</h4> 
+            <p><button class="button">A</button> More than you can imagine</p> 
+            <p><button class="button">B</button> Depends on whether or not the woodchuck is vegan</p>
+            <p><button class="button">C</button> One 2x4 worth</p>
+            <p><button class="button">D</button> 12 matchsticks worth</p>
+        </div>
+    </div> */}
