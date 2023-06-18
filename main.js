@@ -84,9 +84,10 @@ function showQuestions(questionObj, num) {
 function createAnswerKey(questions, numQuestions) {
     let theKey = [];
     for (let question in questions) {
-        const randomNumber = Math.floor(Math.random() * 3) + 1;
+        const randomNumber = Math.floor(Math.random() * 4);
         const answerArray = questions[question].incorrect_answers;
-        answerArray.slice(randomNumber, 0, questions[question].correct_answer);
+        answerArray.splice(randomNumber, 0, questions[question].correct_answer);
+        answerArray.unshift(randomNumber);
         theKey.push(answerArray);
     }
     console.log(theKey);
