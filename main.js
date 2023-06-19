@@ -126,14 +126,15 @@ function endGame(){
 function checkAnswer(e) {
     const correctAnswer = answerKey[qIndex][0];
     const answerGuess = parseInt(e.target.id.split('-')[1]);
-    console.log(answerGuess);
-    console.log(correctAnswer);
-    if (answerGuess === correctAnswer) {
-        console.log('correct');
-    } else {
-        console.log('incorrect');
-    }
+    let correctBtn = document.getElementById(`ans-${correctAnswer}`);
+    let answerBtn = document.getElementById(`ans-${answerGuess}`);
+    if (answerGuess !== correctAnswer) {
+        answerBtn.className = 'result-incorrect';
+    } 
+    correctBtn.className = 'result-correct';
     qIndex ++;
+    setTimeout(f => {
     document.getElementById('question').remove();
     showQuestion(qIndex);
+    }, 1000);
 }
