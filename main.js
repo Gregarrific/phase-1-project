@@ -1,6 +1,6 @@
 //Global variables
 let playerName, difficulty, introMsg, answerKey, questionBank;
-let qIndex = 0, score = 0;
+let qIndex = 0, correct = 0;
 let timerEnd = false;
 const introReset = 'Ready to play?  Enter your name below to start a new game.  Good luck!';
 const apiUrl = `http://localhost:3000/results`; //temporary while testing
@@ -120,7 +120,13 @@ function startGame(questionBank) {
     });
 }
 function endGame(){
-    mainContainer.innerHTML = `<h3>${playerName}, game over!</h3>`;
+    let score = 0;
+    if (difficulty === 'hard') {
+        score = correct * 5;
+    } else if (difficulty === 'medium') {
+        score = correct * 3;
+    };
+    mainContainer.innerHTML = `<h3>${playerName}, game over! You got ${correct} questions right and a score of ${score}!</h3>`;
     document.getElementById('question').remove();
 }
 function checkAnswer(e) {
@@ -131,7 +137,7 @@ function checkAnswer(e) {
     if (answerGuess !== correctAnswer) {
         answerBtn.className = 'result-incorrect';
     } else {
-        score ++;
+        correct ++;
     }
     correctBtn.className = 'result-correct';
     qIndex ++;
