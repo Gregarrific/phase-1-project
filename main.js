@@ -1,6 +1,6 @@
 //Global variables
 let playerName, difficulty, introMsg, answerKey, questionBank;
-let qIndex = 0;
+let qIndex = 0, score = 0;
 let timerEnd = false;
 const introReset = 'Ready to play?  Enter your name below to start a new game.  Good luck!';
 const apiUrl = `http://localhost:3000/results`; //temporary while testing
@@ -107,7 +107,7 @@ function createAnswerKey(questions) {
     return theKey;
 }
 function startGame(questionBank) {
-    mainContainer.innerHTML = `<h3>${playerName}, here we go!  You have 1 minute!</h3>`;
+    mainContainer.innerHTML = `<h3>${playerName}, here we go!  You have 1 minute to answer as many questions as you can!</h3>`;
     setTimeout( f => endGame(), 60000); //Set to 10 seconds for testing purposes
     let numQuestions = questionBank.length;
     answerKey = createAnswerKey(questionBank, numQuestions);
@@ -130,7 +130,9 @@ function checkAnswer(e) {
     let answerBtn = document.getElementById(`ans-${answerGuess}`);
     if (answerGuess !== correctAnswer) {
         answerBtn.className = 'result-incorrect';
-    } 
+    } else {
+        score ++;
+    }
     correctBtn.className = 'result-correct';
     qIndex ++;
     setTimeout(f => {
