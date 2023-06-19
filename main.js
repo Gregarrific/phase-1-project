@@ -124,7 +124,15 @@ function endGame(){
     document.getElementById('question').remove();
 }
 function checkAnswer(e) {
-    console.log(e.target);
+    const correctAnswer = answerKey[qIndex][0];
+    const answerGuess = parseInt(e.target.id.split('-')[1]);
+    console.log(answerGuess);
+    console.log(correctAnswer);
+    if (answerGuess === correctAnswer) {
+        console.log('correct');
+    } else {
+        console.log('incorrect');
+    }
     qIndex ++;
     document.getElementById('question').remove();
     showQuestion(qIndex);
