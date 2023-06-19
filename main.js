@@ -78,19 +78,25 @@ function showQuestion(qIndex) {
     questionCard.className = 'container';
     questionCard.innerHTML =`<h3 class="questionNum">Question ${qIndex + 1}</h3>
             <h4 class="question">${currentQuestion.question}</h4>`
-    for (let button of answerKey[qIndex]) {
+    let i = 0;
+    for (const button of answerKey[qIndex]) {
         if (button === answerKey[qIndex][0]) {
         } else {
         let answerButton = document.createElement('p');
-        answerButton.innerHTML = `<button class='button'>${button}</button>`;
+        let answers = document.createElement('button');
+        answers.className = 'button';
+        answers.id = `ans-${i}`;
+        answers.innerText = button;
+        answerButton.appendChild(answers);
         questionCard.appendChild(answerButton);
+        i ++;
         }
     }
     document.body.appendChild(questionCard);
 }
 function createAnswerKey(questions) {
     let theKey = [];
-    for (let question in questions) {
+    for (const question in questions) {
         const randomNumber = Math.floor(Math.random() * 4);
         const answerArray = questions[question].incorrect_answers;
         answerArray.splice(randomNumber, 0, questions[question].correct_answer);
@@ -102,12 +108,16 @@ function createAnswerKey(questions) {
 }
 function startGame(questionBank) {
     mainContainer.innerHTML = `<h3>${playerName}, here we go!  You have 1 minute!</h3>`;
-    setTimeout( f => endGame(), 10000); //Set to 10 seconds for testing purposes
+    setTimeout( f => endGame(), 60000); //Set to 10 seconds for testing purposes
     let numQuestions = questionBank.length;
     answerKey = createAnswerKey(questionBank, numQuestions);
     let index = 1;
     showQuestion(qIndex);
-    document.addEventListener('click', e => checkAnswer(e))
+    document.addEventListener('click', e => {
+        if (e.target.tagName === 'BUTTON') {
+            checkAnswer(e);
+        };
+    });
 }
 function endGame(){
     mainContainer.innerHTML = `<h3>${playerName}, game over!</h3>`;
@@ -117,5 +127,5 @@ function checkAnswer(e) {
     console.log(e.target);
     qIndex ++;
     document.getElementById('question').remove();
-    showQuestion(qIndex)
+    showQuestion(qIndex);
 }
