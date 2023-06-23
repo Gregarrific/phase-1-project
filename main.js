@@ -67,7 +67,7 @@ function fetchQuestions(e) {
     fetch(apiUrl)
     .then (response => response.json())
     .then (json => {
-        questionBank = json;
+        questionBank = json.results;
         startGame(questionBank);
     });
 }
