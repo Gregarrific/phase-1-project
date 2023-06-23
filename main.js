@@ -125,6 +125,8 @@ function endGame(){
         score = correct * 5;
     } else if (difficulty === 'medium') {
         score = correct * 3;
+    } else {
+        score = correct;
     };
     mainContainer.innerHTML = `<h3>${playerName}, game over! You got ${correct} questions right and a score of ${score}!</h3>`;
     document.getElementById('question').remove();
