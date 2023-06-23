@@ -63,7 +63,8 @@ function initiateCategory() {
     }
 }
 function fetchQuestions(e) {
-    const apiUrl = `https://opentdb.com/api.php?amount=10&category=9&difficulty=${difficulty}&type=multiple`; //10Q testing for API-need to add category choice
+    const cat = e.target.id;
+    const apiUrl = `https://opentdb.com/api.php?amount=50&category=${cat}&difficulty=${difficulty}&type=multiple`;
     fetch(apiUrl)
     .then (response => response.json())
     .then (json => {
@@ -108,7 +109,7 @@ function createAnswerKey(questions) {
 }
 function startGame(questionBank) {
     mainContainer.innerHTML = `<h3>${playerName}, here we go!  You have 1 minute to answer as many questions as you can!</h3>`;
-    setTimeout( f => endGame(), 60000); //Set to 10 seconds for testing purposes
+    setTimeout( f => endGame(), 60000);
     let numQuestions = questionBank.length;
     answerKey = createAnswerKey(questionBank, numQuestions);
     let index = 1;
