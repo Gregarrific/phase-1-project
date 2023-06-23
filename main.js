@@ -63,8 +63,13 @@ function initiateCategory() {
     }
 }
 function fetchQuestions(e) {
-    const cat = e.target.id;
-    const apiUrl = `https://opentdb.com/api.php?amount=40&category=${cat}&difficulty=${difficulty}&type=multiple`;
+    let apiUrl, cat;
+    if (parseInt(e.target.id) === 99) {
+        cat = '';
+    } else {
+        cat = `&category=${e.target.id}`;
+    }
+    apiUrl = `https://opentdb.com/api.php?amount=40${cat}&difficulty=${difficulty}&type=multiple`;
     fetch(apiUrl)
     .then (response => response.json())
     .then (json => {
