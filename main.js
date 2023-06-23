@@ -1,7 +1,7 @@
 //Global variables
 let playerName, difficulty, introMsg, answerKey, questionBank;
 let qIndex = 0, correct = 0;
-let timerEnd = false;
+const showAnswerDelay = 1000; //Delay in milliseconds to show correct answer for each question
 const introReset = 'Ready to play?  Enter your name below to start a new game.  Good luck!';
 const categories = [
     {"id": 9, "name": "General Knowledge"},
@@ -152,5 +152,5 @@ function checkAnswer(e) {
     setTimeout(f => {
     document.getElementById('question').remove();
     showQuestion(qIndex);
-    }, 1000);
+    }, showAnswerDelay);
 }
