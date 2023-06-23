@@ -3,7 +3,6 @@ let playerName, difficulty, introMsg, answerKey, questionBank;
 let qIndex = 0, correct = 0;
 let timerEnd = false;
 const introReset = 'Ready to play?  Enter your name below to start a new game.  Good luck!';
-const apiUrl = `http://localhost:3000/results`; //temporary while testing
 const categories = [
     {"id": 9, "name": "General Knowledge"},
     {"id": 11, "name": "Movies & Film"},
@@ -64,6 +63,7 @@ function initiateCategory() {
     }
 }
 function fetchQuestions(e) {
+    const apiUrl = `https://opentdb.com/api.php?amount=10&category=9&difficulty=${difficulty}&type=multiple`; //10Q testing for API-need to add category choice
     fetch(apiUrl)
     .then (response => response.json())
     .then (json => {
