@@ -64,7 +64,7 @@ function initiateCategory() {
 }
 function fetchQuestions(e) {
     const cat = e.target.id;
-    const apiUrl = `https://opentdb.com/api.php?amount=50&category=${cat}&difficulty=${difficulty}&type=multiple`;
+    const apiUrl = `https://opentdb.com/api.php?amount=40&category=${cat}&difficulty=${difficulty}&type=multiple`;
     fetch(apiUrl)
     .then (response => response.json())
     .then (json => {
